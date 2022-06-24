@@ -471,6 +471,7 @@ public class CommCore {
 				if( channel.redirectionChannel() == null ) {
 					assert (port != null);
 					final CommMessage message = channel.recv();
+					//BTODO: Send back the error if message instanceof RequestErrorCommMessage.
 					if( message != null ) {
 						handleMessage( message );
 					} else {

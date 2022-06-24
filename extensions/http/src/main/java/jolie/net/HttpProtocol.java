@@ -1552,9 +1552,7 @@ public class HttpProtocol extends CommProtocol implements HttpUtils.HttpProtocol
 			} catch( IOException e ) {
 				return new ProtocolTraceAction( ProtocolTraceAction.Type.HTTP, "HTTP MESSAGE RECEIVED",
 					message.requestPath(), e.getMessage(), null );
-
 			}
-
 		} );
 
 		recv_checkForStatusCode( message );
@@ -1572,7 +1570,7 @@ public class HttpProtocol extends CommProtocol implements HttpUtils.HttpProtocol
 			if( hasParameter( CommProtocol.Parameters.OPERATION_SPECIFIC_CONFIGURATION ) ) {
 				recv_templatedOperation( message, decodedMessage );
 			}
-			recv_checkReceivingOperation( message, decodedMessage );
+			recv_checkReceivingOperation( message, decodedMessage ); //BTODO: return an Optional<RequestErrorCommMessage> containing, if any, the error to send back to the caller.
 		}
 
 		// URI parameter parsing
