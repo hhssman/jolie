@@ -471,7 +471,15 @@ public class CommCore {
 				if( channel.redirectionChannel() == null ) {
 					assert (port != null);
 					final CommMessage message = channel.recv();
-					//BTODO: Send back the error if message instanceof RequestErrorCommMessage.
+					if( message instanceof RequestErrorCommMessage ) {
+						// BTODO: Send back the error if message instanceof RequestErrorCommMessage.
+
+						channel
+							.send( CommMessage.createFaultResponse( message, new FaultException( "IOException",
+								"Invalid invocation : " + message.operationName() + " please use "
+									+ ((RequestErrorCommMessage) message).getTemplate() ) ) );
+					}
+
 					if( message != null ) {
 						handleMessage( message );
 					} else {
